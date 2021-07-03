@@ -1,4 +1,4 @@
-package xorshift64
+package GOPRNG
 
 /** Seed a 320-bit xorshift psuedo random number
 generator function that creates int64 values
