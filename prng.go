@@ -24,10 +24,10 @@ func SeedXOrShift64(a int64, b int64, c int64, d int64, e int64) func() int64 {
 next, next with a ceiling, and next between a ceiling
 and floor functions.
 */
-type prng interface {
-	next() int64
-	nextMax(max int64) int64
-	nextBetween(min int64, max int64) int64
+type Prng interface {
+	Next() int64
+	NextMax(max int64) int64
+	NextBetween(min int64, max int64) int64
 }
 
 /** A basic xorshift struct.
@@ -39,26 +39,26 @@ type xorshift struct {
 
 /** Return a psuedo-random int64.
  */
-func (g xorshift) next() int64 {
+func (g xorshift) Next() int64 {
 	return g.generator()
 }
 
 /** Return a psuedo-random int64 with a value
 of 0 inclusive < value < max exclusive.
 */
-func (g xorshift) nextMax(max int64) int64 {
+func (g xorshift) NextMax(max int64) int64 {
 	return g.generator() % max
 }
 
 /** Return a psuedo-random int64 with a value
 of min inclusive < value < max exclusive.
 */
-func (g xorshift) nextBetween(min int64, max int64) int64 {
+func (g xorshift) NextBetween(min int64, max int64) int64 {
 	return (g.generator() % (max - min)) + min
 }
 
 /** Seed and return an xorshift prng.
  */
-func new(a int64, b int64, c int64, d int64, e int64) prng {
+func New(a int64, b int64, c int64, d int64, e int64) Prng {
 	return xorshift{generator: SeedXOrShift64(a, b, c, d, e)}
 }
