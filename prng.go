@@ -3,7 +3,7 @@ package goprng
 /** Seed a 320-bit xorshift psuedo random number
 generator function that creates int64 values
 and return it. */
-func SeedXOrShift64(a int64, b int64, c int64, d int64, e int64) func() int64 {
+func seedXOrShift64(a int64, b int64, c int64, d int64, e int64) func() int64 {
 	return func() int64 {
 		x := e
 		s := a
@@ -60,5 +60,5 @@ func (g xorshift) NextBetween(min int64, max int64) int64 {
 /** Seed and return an xorshift prng.
  */
 func New(a int64, b int64, c int64, d int64, e int64) Prng {
-	return xorshift{generator: SeedXOrShift64(a, b, c, d, e)}
+	return xorshift{generator: seedXOrShift64(a, b, c, d, e)}
 }
